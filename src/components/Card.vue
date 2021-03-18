@@ -9,7 +9,7 @@
         <span class="text secondary" v-text="`$${price}`"></span>
       </div>
       <div class="card__info-action">
-        <button>SELECT</button>
+        <button>BUY</button>
       </div>
     </div>
   </div>
@@ -26,25 +26,44 @@ export default {
 .card {
   width: 100%;
   height: 100%;
-  border: solid thin lightgray;
   display: flex;
   border-radius: 4px;
   flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 0 8px 3px fade-out(black, 0.95),
+      0 3px 5px fade-out(black, 0.9);
+    transform: translateY(-4px);
+
+    .card {
+      &__info {
+        padding: 0 1rem;
+
+        &-action {
+          opacity: 1;
+        }
+      }
+    }
+  }
 
   &__img {
     flex: 0 0 80%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: darken(white, 3);
   }
   &__info {
     height: 100%;
     flex: 0 1 auto;
-    border-top: solid thin lightgray;
     background-color: white;
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
+    padding: 0;
+
+    transition: padding 0.2s ease;
 
     &-text {
       flex: 1 1 100%;
@@ -54,14 +73,19 @@ export default {
 
       strong {
         margin-bottom: 0.35rem;
-        font-size: 1em;
+        font-family: "Open Sans", sans-serif;
+        font-size: 0.9em;
+        font-weight: 600;
       }
       span {
         font-size: 0.85em;
+        font-family: "Open Sans", sans-serif;
       }
     }
     &-action {
       flex: 0 0 auto;
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
   }
 }

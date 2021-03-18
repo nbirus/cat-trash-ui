@@ -97,12 +97,15 @@ export default {
     };
   },
   methods: {
-    checkout() {
+    async checkout() {
+      await getScript("https://js.stripe.com/v3/");
+      let stripe = Stripe(
+        "pk_test_51IW7J0Gz8jyxp7dtne434Jve6qNCHIVcHNFcvo0NSGgxRqcmiIPWZ321FwJpxEtAinF6AQlwCZWHLQ9bLkuaqF0P00sbe8K5kC"
+      );
       fetch("http://localhost:3000/create-checkout-session", {
         method: "POST",
       })
         .then(function (response) {
-          console.log(response);
           return response.json();
         })
         .then(function (session) {
@@ -122,6 +125,18 @@ export default {
     },
   },
 };
+
+function getScript(src) {
+  return new Promise((resolve) => {
+    let script = document.createElement("script");
+    script.onload = () => {
+      resolve();
+    };
+    script.async = true;
+    script.src = src;
+    document.head.appendChild(script);
+  });
+}
 </script>
 
 <style lang="scss" scoped>
